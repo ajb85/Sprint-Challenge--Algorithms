@@ -99,6 +99,10 @@ class SortingRobot:
         # Fill this out
         pass
 
+    def sort_right(self):
+        while(self.can_move_right())
+    def sort_left(self):
+
 
 if __name__ == "__main__":
     # Test our your implementation from the command line
@@ -110,3 +114,19 @@ if __name__ == "__main__":
 
     robot.sort()
     print(robot._list)
+
+
+# Understand
+
+# I am going to write an algorithm that will sort a list of items based on the robot's abilities.
+# However, given the limitations, I won't be able to do anything particularly efficient--or fun :'( 
+# The robot is only able to move left or right, swap items, and toggle a light.
+
+# Plan
+
+# Since the robot has no memory and has to pick up an item to compare it, the only algorithm 
+# that is going to work with any level of efficiency is a bubble sort. That way I can pick blocks 
+# up and carry them to compare and swap when needed.  However, since I can't get the length 
+# of the list, I have to do a full iteration each time but I should be able to increase the 
+# efficiency by allowing the robot to sort on the way back to the zero position.  The light 
+# will be useful in determining if a sort was made or not (so I know when to end).
