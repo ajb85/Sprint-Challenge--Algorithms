@@ -104,7 +104,7 @@ class SortingRobot:
         while self.light_is_on():
             # Initial conditions for the main loop
             self.set_light_off()
-            self.swap_items()
+            self.swap_item()
 
             # Begin moving robit arm up the list
             self.sort_right()
@@ -125,9 +125,12 @@ class SortingRobot:
         # Do the same as above, just opposite direction
         while(self.can_move_left()):
             self.move_left()
-            if(self.can_move_left() and self.compare_item() == 1) or (not self.can_move_left() and self-compare_item() == -1):
+            if(self.can_move_left() and self.compare_item() == 1) or (not self.can_move_left() and self.compare_item() == -1):
                 self.swap_item()
-                self.set_light_on()            
+                self.set_light_on()
+            elif(self.compare_item() == None):
+                self.swap_item()
+            
 
 if __name__ == "__main__":
     # Test our your implementation from the command line
