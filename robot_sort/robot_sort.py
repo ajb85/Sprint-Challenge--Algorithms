@@ -96,9 +96,44 @@ class SortingRobot:
         """
         Sort the robot's list.
         """
-        # Fill this out
-        pass
+        # I'm starting with the light on just because it's easier for me to think of
+        # the light on as a positive case.  I'm aware I'm using a couple extra lines to
+        # turn it on then off again but it doesn't hurt my time efficiency and I think it's
+        # more intuitive to users so I'll argue for it :)
+        self.set_light_on()
+        while self.light_is_on():
+            # Initial conditions for the main loop
+            self.set_light_off()
+            self.swap_item()
 
+            # Begin moving robit arm up the list
+            self.sort_right()
+            # Then return to initial location
+            self.sort_left()
+
+    def sort_right(self):
+        # Robot's instructions when its moving to the right (positive index direction)
+        while(self.can_move_right()):
+            self.move_right()
+            # Biggest to the right so only swap if held item is smaller (returns -1)
+            # Except at the last index, we want the biggest set down so swap if return 1
+            if(self.can_move_right() and self.compare_item() == -1) or (not self.can_move_right() and self.compare_item() == 1):
+                self.swap_item()
+            elif(self.compare_item() == 1):
+                # Dear lord, the swap NOT happening means a change was made!
+                self.set_light_on()
+
+    def sort_left(self):
+        # Do the same as above, just opposite direction
+        while(self.can_move_left()):
+            self.move_left()
+            if(self.can_move_left() and self.compare_item() == 1) or (not self.can_move_left() and self.compare_item() == -1):
+                self.swap_item()
+            elif(self.compare_item() == None):
+                self.swap_item()
+            elif(self.compare_item() == -1):
+                self.set_light_on()
+            
 
 if __name__ == "__main__":
     # Test our your implementation from the command line
@@ -110,3 +145,35 @@ if __name__ == "__main__":
 
     robot.sort()
     print(robot._list)
+
+
+# Understand
+
+# I am going to write an algorithm that will sort a list of items based on the robot's abilities.
+# However, given the limitations, I won't be able to do anything particularly efficient--or fun :'( 
+# The robot is only able to move left or right, swap items, and toggle a light.
+
+# Plan
+
+# Since the robot has no memory and has to pick up an item to compare it, the only algorithm 
+# that is going to work with any level of efficiency is a bubble sort. That way I can pick blocks 
+# up and carry them to compare and swap when needed.  However, since I can't get the length 
+# of the list, I have to do a full iteration each time but I should be able to increase the 
+# efficiency by allowing the robot to sort on the way back to the zero position.  The light 
+# will be useful in determining if a sort was made or not (so I know when to end).
+
+# Consider: 
+#     When moving right, the robot should swap any time it's holding the lesser of the two items since the
+#     biggest item needs to go to the end.  HOWEVER, at the final index the biggest needs to be in place so 
+#     if it's in the last position, the robot should be carrying the lesser of the two items (so opposite condition
+#     as above).
+
+#     Furthermore, in the array [1, 2, 3, 5, 4, 6] a swap will occur at every position as it moves right since it'll 
+#     always be moving up the array.  The only time that isn't true is when it picks up 5 and compare it to 4.  Therefore,
+#     instead of flagging a change on a swap (and triggering an infinite loop), the flag should only be triggered when a 
+#     swap DOESN'T occur.  
+
+#     Lastly, when the robot is returning back to the zero index, it will encounter a None and should place its block there.
+#     Every time the robot resets, it'll pick up the zero index item by the time it returns to zero index, it should be carrying the
+#     lowest item so it should always drop it (and then unfortunately pick it back up again on reset, but I have limitations, what else
+#     can I do?!)
