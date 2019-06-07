@@ -119,6 +119,8 @@ class SortingRobot:
             # Except at the last index, we want the biggest set down so swap if return 1
             if(self.can_move_right() and self.compare_item() == -1) or (not self.can_move_right() and self.compare_item() == 1):
                 self.swap_item()
+            elif(self.compare_item() == 1):
+                # Dear lord, the swap NOT happening means a change was made!
                 self.set_light_on()
 
     def sort_left(self):
@@ -127,9 +129,10 @@ class SortingRobot:
             self.move_left()
             if(self.can_move_left() and self.compare_item() == 1) or (not self.can_move_left() and self.compare_item() == -1):
                 self.swap_item()
-                self.set_light_on()
             elif(self.compare_item() == None):
                 self.swap_item()
+            elif(self.compare_item() == -1):
+                self.set_light_on()
             
 
 if __name__ == "__main__":
