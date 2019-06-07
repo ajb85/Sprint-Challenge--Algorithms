@@ -117,7 +117,7 @@ class SortingRobot:
             self.move_right()
             # Biggest to the right so only swap if held item is smaller (returns -1)
             # Except at the last index, we want the biggest set down so swap if return 1
-            if(self.can_move_right() and self.compare_item() == -1) or (not self.can_move_right() and self-compare_item() == 1):
+            if(self.can_move_right() and self.compare_item() == -1) or (not self.can_move_right() and self.compare_item() == 1):
                 self.swap_item()
                 self.set_light_on()
 
@@ -127,7 +127,7 @@ class SortingRobot:
             self.move_left()
             if(self.can_move_left() and self.compare_item() == 1) or (not self.can_move_left() and self-compare_item() == -1):
                 self.swap_item()
-                self.set_light_on()
+                self.set_light_on()            
 
 if __name__ == "__main__":
     # Test our your implementation from the command line
