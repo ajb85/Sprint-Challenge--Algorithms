@@ -96,13 +96,38 @@ class SortingRobot:
         """
         Sort the robot's list.
         """
-        # Fill this out
-        pass
+        # I'm starting with the light on just because it's easier for me to think of
+        # the light on as a positive case.  I'm aware I'm using a couple extra lines to
+        # turn it on then off again but it doesn't hurt my time efficiency and I think it's
+        # more intuitive to users so I'll argue for it :)
+        self.set_light_on()
+        while self.light_is_on():
+            # Initial conditions for the main loop
+            self.set_light_off()
+            self.swap_items()
+
+            # Begin moving robit arm up the list
+            self.sort_right()
+            # Then return to initial location
+            self.sort_left()
 
     def sort_right(self):
-        while(self.can_move_right())
-    def sort_left(self):
+        # Robot's instructions when its moving to the right (positive index direction)
+        while(self.can_move_right()):
+            self.move_right()
+            # Biggest to the right so only swap if held item is smaller (returns -1)
+            # Except at the last index, we want the biggest set down so swap if return 1
+            if(self.can_move_right() and self.compare_item() == -1) or (not self.can_move_right() and self-compare_item() == 1):
+                self.swap_item()
+                self.set_light_on()
 
+    def sort_left(self):
+        # Do the same as above, just opposite direction
+        while(self.can_move_left()):
+            self.move_left()
+            if(self.can_move_left() and self.compare_item() == 1) or (not self.can_move_left() and self-compare_item() == -1):
+                self.swap_item()
+                self.set_light_on()
 
 if __name__ == "__main__":
     # Test our your implementation from the command line
