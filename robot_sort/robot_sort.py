@@ -161,3 +161,19 @@ if __name__ == "__main__":
 # of the list, I have to do a full iteration each time but I should be able to increase the 
 # efficiency by allowing the robot to sort on the way back to the zero position.  The light 
 # will be useful in determining if a sort was made or not (so I know when to end).
+
+# Consider: 
+#     When moving right, the robot should swap any time it's holding the lesser of the two items since the
+#     biggest item needs to go to the end.  HOWEVER, at the final index the biggest needs to be in place so 
+#     if it's in the last position, the robot should be carrying the lesser of the two items (so opposite condition
+#     as above).
+
+#     Furthermore, in the array [1, 2, 3, 5, 4, 6] a swap will occur at every position as it moves right since it'll 
+#     always be moving up the array.  The only time that isn't true is when it picks up 5 and compare it to 4.  Therefore,
+#     instead of flagging a change on a swap (and triggering an infinite loop), the flag should only be triggered when a 
+#     swap DOESN'T occur.  
+
+#     Lastly, when the robot is returning back to the zero index, it will encounter a None and should place its block there.
+#     Every time the robot resets, it'll pick up the zero index item by the time it returns to zero index, it should be carrying the
+#     lowest item so it should always drop it (and then unfortunately pick it back up again on reset, but I have limitations, what else
+#     can I do?!)
